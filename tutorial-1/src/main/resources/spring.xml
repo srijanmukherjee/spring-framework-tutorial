@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="equilateralTriangle" class="in.srijanmukherjee.Triangle">
+        <constructor-arg index="0" value="Equilateral"/>
+        <constructor-arg index="1" value="100" />
+    </bean>
+    <!-- use the "name" attribute to set an alias -->
+    <bean id="isoscelesTriangle" class="in.srijanmukherjee.Triangle" name="isosceles-triangle-alias">
+        <constructor-arg value="Isosceles"/>
+        <constructor-arg value="200"/>
+    </bean>
+    <bean id="scaleneTriangle" class="in.srijanmukherjee.Triangle">
+        <!-- NOTE: this will call Triangle(int height) ctor -->
+        <constructor-arg value="50" type="int"/>
+    </bean>
+
+    <bean id="triangleWithPoints" class="in.srijanmukherjee.TriangleWithPoints">
+        <!-- NOTE: passes the beans (defined below) as ctor arguments -->
+<!--        <constructor-arg ref="pointA" />-->
+<!--        <constructor-arg ref="pointB" />-->
+<!--        <constructor-arg ref="zeroPoint" />-->
+        <constructor-arg>
+            <idref bean="zeroPoint"/>
+        </constructor-arg>
+        <constructor-arg>
+            <!-- NOTE: inner beans don't need an id -->
+            <bean class="in.srijanmukherjee.Point">
+                <constructor-arg value="-20"/>
+                <constructor-arg value="0"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg>
+            <!-- NOTE: inner beans don't need an id -->
+            <bean class="in.srijanmukherjee.Point">
+                <constructor-arg value="0"/>
+                <constructor-arg value="20"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="zeroPoint" class="in.srijanmukherjee.Point">
+        <constructor-arg value="0"/>
+        <constructor-arg value="0"/>
+    </bean>
+
+    <bean id="pointA" class="in.srijanmukherjee.Point">
+        <constructor-arg value="-20"/>
+        <constructor-arg value="0"/>
+    </bean>
+
+    <bean id="pointB" class="in.srijanmukherjee.Point">
+        <constructor-arg value="0"/>
+        <constructor-arg value="20"/>
+    </bean>
+
+<!-- Create alias, triangleWithPoints can be referred to as "triangle-alias" when calling getBean() -->
+    <alias name="triangleWithPoints" alias="triangle-alias" />
+</beans>
