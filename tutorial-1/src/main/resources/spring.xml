@@ -20,10 +20,11 @@
         <!-- NOTE: passes the beans (defined below) as ctor arguments -->
 <!--        <constructor-arg ref="pointA" />-->
 <!--        <constructor-arg ref="pointB" />-->
-<!--        <constructor-arg ref="zeroPoint" />-->
-        <constructor-arg>
+        <constructor-arg ref="zeroPoint" />
+<!-- BEWARE: This does not work -->
+<!--        <constructor-arg>
             <idref bean="zeroPoint"/>
-        </constructor-arg>
+        </constructor-arg> -->
         <constructor-arg>
             <!-- NOTE: inner beans don't need an id -->
             <bean class="in.srijanmukherjee.Point">
