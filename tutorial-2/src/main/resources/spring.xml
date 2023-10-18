@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="triangle" class="in.srijanmukherjee.Triangle">
+        <constructor-arg index="0">
+            <list>
+                <ref bean="zeroPoint"/>
+                <ref bean="pointA" />
+                <bean class="in.srijanmukherjee.Point">
+                    <constructor-arg value="1" />
+                    <constructor-arg value="12" />
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+<!--    More bean definition inheritance example (inheriting list)-->
+
+    <bean id="super-triangle" class="in.srijanmukherjee.Triangle" parent="triangle">
+        <constructor-arg index="0">
+            <list merge="true" value-type="in.srijanmukherjee.Point">
+                <ref bean="pointC" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+<!--    Autowiring example-->
+    <bean id="autowiredTriangle" class="in.srijanmukherjee.AutowiredTriangle" autowire="byName"/>
+
+    <bean id="zeroPoint" class="in.srijanmukherjee.Point" scope="prototype">
+        <constructor-arg value="0" type="int"/>
+        <constructor-arg value="0" type="int"/>
+    </bean>
+
+    <bean id="pointA" class="in.srijanmukherjee.Point">
+        <constructor-arg value="-20"/>
+        <constructor-arg value="0"/>
+    </bean>
+
+    <bean id="pointB" class="in.srijanmukherjee.Point">
+        <constructor-arg value="0"/>
+        <constructor-arg value="20"/>
+    </bean>
+
+    <bean id="pointC" class="in.srijanmukherjee.Point">
+        <constructor-arg value="6"/>
+        <constructor-arg value="9"/>
+    </bean>
+
+<!--    Bean definition inheritance example-->
+    <bean id="parent-triangle" class="in.srijanmukherjee.PointedTriangle" abstract="true">
+        <property name="pointA" ref="pointA"/>
+        <property name="pointB" ref="zeroPoint"/>
+    </bean>
+
+    <bean name="triangle1" class="in.srijanmukherjee.PointedTriangle" parent="parent-triangle">
+        <property name="pointC">
+                <bean class="in.srijanmukherjee.Point">
+                    <constructor-arg value="1" />
+                    <constructor-arg value="12" />
+                </bean>
+        </property>
+    </bean>
+
+    <bean name="triangle2" class="in.srijanmukherjee.PointedTriangle" parent="parent-triangle">
+        <property name="pointC">
+                <bean class="in.srijanmukherjee.Point">
+                    <constructor-arg value="12" />
+                    <constructor-arg value="40" />
+                </bean>
+        </property>
+    </bean>
+
+</beans>
