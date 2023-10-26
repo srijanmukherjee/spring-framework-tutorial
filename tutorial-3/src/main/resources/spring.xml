@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="onGlobalInit"
+       default-destroy-method="onGlobalDestroy">
+    <bean id="car" class="in.srijanmukherjee.Car" init-method="onInit" destroy-method="onDestroy">
+        <property name="engine" ref="engine"/>
+    </bean>
+    <bean id="engine" class="in.srijanmukherjee.Engine">
+        <property name="hp" value="241"/>
+        <property name="cylinders" value="4"/>
+    </bean>
+
+    <bean id="engine2" class="in.srijanmukherjee.Engine">
+        <property name="hp" value="${engineLarge.hp}"/>
+        <property name="cylinders" value="${engineLarge.cylinders}"/>
+    </bean>
+
+    <bean class="in.srijanmukherjee.DisplayNameBeanPostProcessor" />
+    <bean class="in.srijanmukherjee.JakeBeanFactoryBeanProcessor" />
+<!--    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--        <property name="locations" value="application.properties" />-->
+<!--    </bean>-->
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations" value="application.properties" />
+    </bean>
+</beans>
