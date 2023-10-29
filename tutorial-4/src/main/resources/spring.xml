@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           https://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="car" class="in.srijanmukherjee.Car">
+        <property name="engine" ref="engine"/>
+    </bean>
+    <bean id="truck" class="in.srijanmukherjee.Truck">
+        <property name="engine" ref="engine"/> <!-- Try commenting it out to see what error it gives -->
+    </bean>
+    <bean id="engine" class="in.srijanmukherjee.Engine">
+        <property name="hp" value="241"/>
+        <property name="cylinders" value="4"/>
+    </bean>
+
+    <bean id="trailer" class="in.srijanmukherjee.Trailer">
+        <property name="wheels" value="2" />
+    </bean>
+
+    <bean id="trailer2" class="in.srijanmukherjee.Trailer">
+        <qualifier value="truckRelated" />
+        <property name="wheels" value="4" />
+    </bean>
+
+    <bean id="trailer3" class="in.srijanmukherjee.Trailer">
+        <property name="wheels" value="10" />
+    </bean>
+
+<!--    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />-->
+<!--    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />-->
+    <context:annotation-config/>
+    <context:component-scan base-package="in.srijanmukherjee"/>
+</beans>
